@@ -4,3 +4,8 @@ services:
     ports:
       - "80:80"
     restart: always
+  web2:
+    image: nginx:latest
+    ports:
+      - "80:81"
+    restart: always
