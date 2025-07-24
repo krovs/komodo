@@ -1,0 +1,6 @@
+services:
+  web:
+    image: nginx:latest # Or any other simple image
+    ports:
+      - "80:80"
+    restart: always
