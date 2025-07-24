@@ -7,5 +7,5 @@ services:
   web2:
     image: nginx:latest
     ports:
-      - "80:81"
+      - "81:80"
     restart: always
