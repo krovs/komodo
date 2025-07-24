@@ -1,3 +1,4 @@
+name: stacktest
 services:
   web:
     image: nginx:latest # Or any other simple image
