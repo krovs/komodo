@@ -10,8 +10,3 @@ services:
     ports:
       - "81:80"
     restart: always
-  web5:
-    image: nginx:latest
-    ports:
-      - "89:80"
-    restart: always
