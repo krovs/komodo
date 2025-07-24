@@ -9,8 +9,3 @@ services:
     ports:
       - "81:80"
     restart: always
-  web3:
-    image: nginx:latest
-    ports:
-      -  "85:80"
-    restart: always
