@@ -1,0 +1,8 @@
+[[repo]]
+name = "github"
+[repo.config]
+server = "server-vDZNm"
+builder = "local"
+git_account = "krovs"
+repo = "krovs/komodo"
+webhook_enabled = false
