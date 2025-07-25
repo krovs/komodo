@@ -10,13 +10,11 @@ pre_deploy.command = """
   docker volume create homepage
   docker volume create rsync
   docker volume create caddy
-  docker network create shared-proxy-network
 """
 file_contents = """
----
+--
 name: home
 services:
-
   uptime-kuma:
     container_name: uptime-kuma
     image: louislam/uptime-kuma
@@ -26,19 +24,20 @@ services:
     volumes:
       - uptimekuma:/app/data
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - default
   
   caddy:
     image: caddy:latest
     container_name: caddy
     restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
+      - "80:80"   # HTTP for ACME challenges and HTTP -> HTTPS redirect
+      - "443:443" # HTTPS
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      - caddy:/data
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro # Mount your Caddy configuration
     networks:
-      - proxy_network
+      - default
 
   homepage:
     container_name: homepage
@@ -49,7 +48,9 @@ services:
       - HOMEPAGE_ALLOWED_HOSTS=home.lab,home.feluran.net
     volumes:
       - homepage:/app/config
-  
+    networks:
+      - default
+
   watchtower:
     container_name: watchtower
     restart: unless-stopped
@@ -63,6 +64,9 @@ services:
       WATCHTOWER_NO_STARTUP_MESSAGE: "false"
       WATCHTOWER_NOTIFICATIONS: "shoutrrr"
       WATCHTOWER_NOTIFICATION_URL: "pushover://shoutrrr:az4x7uogec1p9hrqakt6uybscynvh5@u2k1mo92sid1qfaduof1h1rbvowr5n/?title=🗼+Watchtower+|+Container+updates"
+    networks:
+      - default
+  
 
   rsync:
     container_name: rsync
@@ -77,6 +81,8 @@ services:
         crontab /usr/local/bin/crontab && 
         crond -f"
     restart: unless-stopped
+    networks:
+      - default
 
   ntfy:
     image: binwiederhier/ntfy
@@ -88,7 +94,7 @@ services:
       - ntfy:/etc/ntfy
     ports:
       - 85:80
-    healthcheck:
+    healthcheck: # optional: remember to adapt the host:port to your environment
         test: ["CMD-SHELL", "wget -q --tries=1 http://localhost:80/v1/health -O - | grep -Eo '\"healthy\"\\s*:\\s*true' || exit 1"]
         interval: 60s
         timeout: 10s
@@ -99,6 +105,8 @@ services:
       NTFY_AUTH_DEFAULT_ACCESS: deny-all
       NTFY_ENABLE_LOGIN: true
       NTFY_AUTH_FILE: /etc/ntfy/auth.db
+    networks:
+      - default
 
 volumes:
   ntfy:
@@ -109,10 +117,7 @@ volumes:
     external: true
   rsync:
     external: true
-  caddy:
-    external: true
 
 networks:
-  proxy_network:
-    name: shared-proxy-network
+  default:
 """
