@@ -1,0 +1,8 @@
+[[server]] # Declare a new server
+name = "server-test"
+description = "the prod server"
+tags = ["prod"]
+[server.config]
+address = "http://192.168.1.25"
+region = "paco"
+enabled = true # default: false
