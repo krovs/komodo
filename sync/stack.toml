@@ -3,6 +3,15 @@ name = "stack"
 [stack.config]
 server = "server-test"
 destroy_before_deploy = true
+pre_deploy.command = """
+  # Add multiple commands on new lines. Supports comments.
+  docker volume create ntfy
+  docker volume create uptimekuma
+  docker volume create homepage
+  docker volume create rsync
+  docker volume create caddy
+  docker network create shared-proxy-network
+"""
 file_contents = """
 ---
 name: home
@@ -97,8 +106,6 @@ volumes:
   uptimekuma:
     external: true
   homepage:
-    external: true
-  portainer:
     external: true
   rsync:
     external: true
