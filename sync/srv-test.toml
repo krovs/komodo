@@ -3,6 +3,6 @@ name = "server-test"
 description = "the prod server"
 tags = ["prod"]
 [server.config]
-address = "http://192.168.1.25"
+address = "http://192.168.1.25:8120"
 region = "paco"
 enabled = true # default: false
