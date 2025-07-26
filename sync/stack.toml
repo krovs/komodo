@@ -11,7 +11,7 @@ file_contents = """
 name: home
 services:
   uptime-kuma:
-    container_name: uptime-kuma
+    container_name: uptime-kumas
     image: louislam/uptime-kuma
     restart: always
     ports:
