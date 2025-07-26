@@ -1,0 +1,6 @@
+[[alerter]]
+name = "adf"
+[alerter.config]
+enabled = true
+endpoint.type = "Ntfy"
+endpoint.params.url = "http://ntfy.lab/test?auth=QmVhcmVyIHRrX3Y4ZmI1bXNqOXgxdHkxdmkzZjNmcHMyeTYxZzE2"
