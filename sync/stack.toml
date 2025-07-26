@@ -6,3 +6,4 @@ destroy_before_deploy = true
 linked_repo = "github"
 webhook_enabled = false
 run_directory = "composes/nginx"
+file_paths = ["compose.yaml", "Caddyfile"]
