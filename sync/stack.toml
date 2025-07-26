@@ -3,8 +3,6 @@ name = "stack"
 [stack.config]
 server = "server-test"
 destroy_before_deploy = true
-pre_deploy.command = """
-  docker volume create uptimekuma
 """
 file_contents = """
 --
