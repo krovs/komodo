@@ -1,0 +1,15 @@
+http://home.lab {
+    reverse_proxy homepage:3000
+}
+
+http://kuma.lab {
+    reverse_proxy uptime-kuma:3001
+}
+
+http://ntfy.lab {
+    reverse_proxy ntfy:80
+}
+
+http://komodo.lab {
+    reverse_proxy core:9120
+}
