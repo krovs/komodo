@@ -8,7 +8,7 @@ file_contents = """
 --
 name: home
 services:
-  uptime-kuma:
+  uptime-kumas:
     image: louislam/uptime-kuma:1
     volumes:
       - ./data:/app/data
